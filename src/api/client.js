@@ -1,6 +1,12 @@
 import axios from "axios";
+
+const baseURL =
+  process.env.REACT_APP_NOT_SECRET_CODE === "production"
+    ? window.location.hostname + "/api"
+    : "http://localhost:5000/api";
+
 const client = axios.create({
-  baseURL: "http://localhost:5000/api",
+  baseURL: baseURL,
   headers: {
     Authorization: `Bearer ${localStorage.getItem("auth-token")}`,
   },
