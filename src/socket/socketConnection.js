@@ -10,7 +10,7 @@ let socket = null;
 
 const socketURL =
   process.env.REACT_APP_NOT_SECRET_CODE === "production"
-    ? window.location.hostname
+    ? "https://warm-garden-25129.herokuapp.com"
     : "http://localhost:5000";
 
 export const connectWithSocketServer = (token) => {

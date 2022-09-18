@@ -2,7 +2,7 @@ import axios from "axios";
 
 const baseURL =
   process.env.REACT_APP_NOT_SECRET_CODE === "production"
-    ? window.location.hostname + "/api"
+    ? "https://warm-garden-25129.herokuapp.com/api"
     : "http://localhost:5000/api";
 
 const client = axios.create({
