@@ -26,7 +26,8 @@ const defaultMedia = {
   video: true,
 };
 
-export const getLocalStreamPreview = (onlyAudio = false, callbackFunc) => {
+export const getLocalStreamPreview = (onlyAudio, callbackFunc) => {
+  console.log(onlyAudio);
   const media = onlyAudio ? onlyAudioMedia : defaultMedia;
 
   navigator.mediaDevices

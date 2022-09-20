@@ -11,7 +11,7 @@ export const createNewRoom = (roomInfo) => {
     });
     createRoom(roomInfo);
   };
-  const onlyAudio = store.getState().room.onlyAudio;
+  const onlyAudio = store.getState().room.audioOnly;
   getLocalStreamPreview(onlyAudio, successCallbackFunc);
 };
 
@@ -27,7 +27,7 @@ export const joinARoom = (joinInfo) => {
     });
     joinRoom(joinInfo);
   };
-  const onlyAudio = store.getState().room.onlyAudio;
+  const onlyAudio = store.getState().room.audioOnly;
 
   getLocalStreamPreview(onlyAudio, successCallbackFunc);
 };

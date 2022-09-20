@@ -7,6 +7,8 @@ import { connect } from "react-redux";
 import { useEffect } from "react";
 import { updateRoomChat } from "../../socket/socketConnection";
 import { AiOutlineLock } from "react-icons/ai";
+import { getActions } from "../../store/actions/roomAction";
+import { BsCameraVideo, BsCameraVideoOff } from "react-icons/bs";
 
 const validateInfo = (name) => {
   if (!name.trim()) return { status: false, error: "Room code is missing!" };
@@ -18,7 +20,13 @@ const validateInfo = (name) => {
   return { status: true };
 };
 
-const JoinRoom = ({ roomDetails, activeRooms, user }) => {
+const JoinRoom = ({
+  roomDetails,
+  activeRooms,
+  user,
+  setAudioOnly,
+  audioOnly,
+}) => {
   const [roomId, setRoomId] = useState();
   const [noti, setNoti] = useState({
     border: "dark:border-gray-600 border-gray-300",
@@ -89,6 +97,18 @@ const JoinRoom = ({ roomDetails, activeRooms, user }) => {
         <span className="text-gray-400">
           You can join room chat by room code or click on a available room
         </span>
+        <div>
+          {!audioOnly ? (
+            <button onClick={() => setAudioOnly(!audioOnly)}>
+              <BsCameraVideo className="h-6 w-6 mx-auto my-auto" />
+            </button>
+          ) : (
+            <button onClick={() => setAudioOnly(!audioOnly)}>
+              <BsCameraVideoOff className="h-6 w-6 mx-auto my-auto " />
+            </button>
+          )}
+        </div>
+
         <label
           className={"flex justify-between bg-dark-third border " + noti.border}
         >
@@ -170,5 +190,10 @@ const mapStateToProps = ({ room, auth }) => {
     ...auth,
   };
 };
+const mapActionToProps = (dispatch) => {
+  return {
+    ...getActions(dispatch),
+  };
+};
 
-export default connect(mapStateToProps)(JoinRoom);
+export default connect(mapStateToProps, mapActionToProps)(JoinRoom);
