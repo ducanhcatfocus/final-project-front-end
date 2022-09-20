@@ -11,6 +11,7 @@ import FormInput from "../form/FormInput";
 import Notification from "../form/Notification";
 import Submit from "../form/Submit";
 import Title from "../form/Title";
+import EmailVerification from "./EmailVerification";
 
 const validateInfo = ({ password, email }) => {
   if (!email.trim()) return { status: false, error: "Email is missing!" };
@@ -25,13 +26,10 @@ const SignIn = ({ login, isPending }) => {
     email: "",
     password: "",
   });
+
   const navigate = useNavigate();
   const { updateNotification, color, notification } = useNotification();
   const { email, password } = userInfo;
-
-  // useEffect(() => {
-  //   if (isLoggedIn) navigate("/");
-  // }, [isLoggedIn]);
 
   const handleChange = ({ target }) => {
     const { value, name } = target;

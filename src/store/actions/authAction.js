@@ -25,16 +25,20 @@ const login = (userDetail, navigate) => {
     }
     if (!user.isVerified) {
       dispatch({ type: "AUTH.SET_PENDING", isPending: false });
-      navigate("/auth/verification", {
-        state: { user: user },
-        replace: true,
-      });
+      // navigate("/auth/verification", {
+      //   state: { user: user },
+      //   replace: true,
+      // });
+
       return;
     }
     localStorage.setItem("auth-token", user.token);
     dispatch({ type: "AUTH.SET_USER_DETAIL", user });
     dispatch({ type: "AUTH.SET_PENDING", isPending: false });
-    // connectWithSocketServer(user.token);
+    connectWithSocketServer(user.token);
+    dispatch({
+      type: "LOADING.SET_LOADING",
+    });
     navigate("/");
   };
 };
@@ -70,6 +74,7 @@ const changeAvatar = (avatar) => {
 };
 
 const isAuth = (token) => {
+  console.log("BACHHHHHHHHHHHHHHHHHHHH");
   return async (dispatch) => {
     const { error, user } = await getIsAuth(token);
     if (user) {

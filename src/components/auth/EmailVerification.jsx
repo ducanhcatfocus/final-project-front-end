@@ -6,6 +6,7 @@ import Container from "../Container";
 import Notification from "../form/Notification";
 import Submit from "../form/Submit";
 import Title from "../form/Title";
+import { AiOutlineClose } from "react-icons/ai";
 
 const otp_length = 6;
 
@@ -24,8 +25,6 @@ const EmailVerification = () => {
   const [activeOtpIndex, setActiveOtpIndex] = useState(0);
 
   const inputRef = useRef();
-  // const { isAuth, authInfo } = useAuth();
-  // const { isLoggedIn } = authInfo;
 
   const { state } = useLocation();
 
@@ -36,7 +35,6 @@ const EmailVerification = () => {
 
   useEffect(() => {
     if (!user) navigate("/not-found");
-    // if (isLoggedIn) navigate("/");
   }, [user]);
 
   const moveToNextIndex = (index) => {
@@ -97,10 +95,16 @@ const EmailVerification = () => {
   return (
     <div
       onSubmit={handleSubmit}
-      className="col-span-6 bg-primary flex justify-center items-center"
+      className="col-span-6 bg-dark-primary flex justify-center items-center"
     >
       <Container>
-        <form className="bg-secondary rounded w-96 p-6 space-y-6 mx-auto">
+        <form className="bg-dark-third rounded w-96 p-6 space-y-6 mx-auto relative">
+          <button
+            onClick={() => navigate("/auth/login")}
+            className="absolute top-1 right-1 text-white p-1 border-0.5 hover:border-white border-dark-third rounded-full"
+          >
+            <AiOutlineClose className="h-5 w-5" />
+          </button>
           <div>
             <Title>Enter your OTP to verify your account</Title>
             <p className="text-center text-dark-subtle">
@@ -125,6 +129,7 @@ const EmailVerification = () => {
           {notification && (
             <Notification color={color} notification={notification} />
           )}
+
           <Submit value="Send" />
         </form>
       </Container>

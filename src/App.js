@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { connect } from "react-redux";
 import { useEffect } from "react";
 import Navbar from "./components/user/Navbar";
@@ -32,6 +32,8 @@ import { getActions } from "./store/actions/authAction";
 
 function App({ user, chosenChatDetails, error, isAuth, loading }) {
   const navigate = useNavigate();
+  const location = useLocation();
+  console.log(location.pathname);
 
   useEffect(() => {
     const token = localStorage.getItem("auth-token");
@@ -40,64 +42,47 @@ function App({ user, chosenChatDetails, error, isAuth, loading }) {
       return;
     }
     isAuth(token);
-    navigate("/");
-
-    // if (!user) {
-    //   navigate("/auth/login");
-    // }
-    // connectWithSocketServer(user.token);
-    // if (!user) {
-    //   navigate("/auth/login");
-    // }
-  }, []);
+    if (location.pathname.slice(0, 5) === "/auth") {
+      navigate("/");
+    }
+  }, [isAuth]);
   return (
     <div className="h-screen w-screen dark:bg-primary bg-light-secondary ">
       <Navbar />
       <div className="grid grid-cols-6 h-[calc(100%_-_3.5rem)] max-w-screen-2xl">
-        {user && <Sidebar />}
+        {location.pathname.slice(0, 5) !== "/auth" && <Sidebar />}
         <Routes>
-          {!loading && (
-            <>
-              <Route exact path="/" element={<Main />} />
-              <Route exact path="/add-friend" element={<AddFriend />} />
-              <Route exact path="/send-document" element={<SendDocument />} />
-              <Route exact path="/my-document" element={<MyDocument />} />
-              <Route
-                exact
-                path="/document/:documentId"
-                element={<Document />}
-              />
-              <Route
-                exact
-                path="/received-document/:documentId"
-                element={<RecievedDocument />}
-              />
-              <Route exact path="/inbox" element={<Inbox />} />
-              <Route exact path="/flow" element={<MyFlow />} />
-              <Route exact path="/messages" element={<Messages />} />
-              <Route
-                exact
-                path="/my-profile"
-                element={<Profile user={user} />}
-              />
-              <Route exact path="/profile/:userId" element={<UserProfile />} />
-              <Route exact path="/create-room" element={<CreateRoom />} />
-              <Route exact path="/join-room" element={<JoinRoom />} />
-              <Route exact path="/room" element={<Room />} />
-            </>
-          )}
+          <Route exact path="/" element={<Main />} />
+          <Route exact path="/add-friend" element={<AddFriend />} />
+          <Route exact path="/send-document" element={<SendDocument />} />
+          <Route exact path="/my-document" element={<MyDocument />} />
+          <Route exact path="/document/:documentId" element={<Document />} />
+          <Route
+            exact
+            path="/received-document/:documentId"
+            element={<RecievedDocument />}
+          />
+          <Route exact path="/inbox" element={<Inbox />} />
+          <Route exact path="/flow" element={<MyFlow />} />
+          <Route exact path="/messages" element={<Messages />} />
+          <Route exact path="/my-profile" element={<Profile user={user} />} />
+          <Route exact path="/profile/:userId" element={<UserProfile />} />
+          <Route exact path="/create-room" element={<CreateRoom />} />
+          <Route exact path="/join-room" element={<JoinRoom />} />
+          <Route exact path="/room" element={<Room />} />
+          <Route path="*" element={<NotFound />} />
 
           <Route path="/auth/login" element={<SignIn />} />
           <Route path="/auth/signup" element={<SignUp />} />
           <Route path="/auth/verification" element={<EmailVerification />} />
           <Route path="/auth/forget-password" element={<ForgetPassword />} />
           <Route path="/auth/confirm-password" element={<ConfirmPassword />} />
-          <Route path="*" element={<NotFound />} />
         </Routes>
         {chosenChatDetails &&
-          window.location.href.slice(-9) !== "/messages" && <Chatbox />}
+          location.pathname !== "/messages" &&
+          location.pathname.slice(0, 8) !== "/profile" && <Chatbox />}
         {error && <ErrorNotification error={error} />}
-        {user && <Rightbar />}
+        {location.pathname.slice(0, 5) !== "/auth" && <Rightbar />}
       </div>
     </div>
   );

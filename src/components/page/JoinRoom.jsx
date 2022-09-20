@@ -27,8 +27,10 @@ const JoinRoom = ({ roomDetails, activeRooms, user }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    updateRoomChat();
-  }, []);
+    if (user) {
+      updateRoomChat();
+    }
+  }, [user]);
 
   const handleChangeInput = (e) => {
     setRoomId(e.target.value);

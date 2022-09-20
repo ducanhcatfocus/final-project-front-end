@@ -1,5 +1,5 @@
 const initState = {
-  loading: true,
+  loading: false,
   error: null,
 };
 
