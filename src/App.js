@@ -2,9 +2,6 @@ import React from "react";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { connect } from "react-redux";
 import { useEffect } from "react";
-import Navbar from "./components/user/Navbar";
-import Sidebar from "./components/user/Sidebar";
-import Rightbar from "./components/user/Rightbar";
 
 import ConfirmPassword from "./components/auth/ConfirmPassword";
 import EmailVerification from "./components/auth/EmailVerification";
@@ -12,28 +9,37 @@ import ForgetPassword from "./components/auth/ForgetPassword";
 import SignIn from "./components/auth/SignIn";
 import SignUp from "./components/auth/SignUp";
 import NotFound from "./components/NotFound";
-import Main from "./components/page/Main";
-import AddFriend from "./components/page/AddFriend";
-import Inbox from "./components/page/Inbox";
-import SendDocument from "./components/page/SendDocument";
-import MyFlow from "./components/page/MyFlow";
-import MyDocument from "./components/page/MyDocument";
-import Document from "./components/page/Document";
-import RecievedDocument from "./components/page/RecievedDocument";
-import Chatbox from "./components/page/Chatbox";
+
 import ErrorNotification from "./components/ErrorNotification";
-import Messages from "./components/page/Messages";
-import Profile from "./components/page/Profile";
-import UserProfile from "./components/page/userProfile";
-import CreateRoom from "./components/page/CreateRoom";
-import Room from "./components/page/Room";
-import JoinRoom from "./components/page/JoinRoom";
+
 import { getActions } from "./store/actions/authAction";
 
-function App({ user, chosenChatDetails, error, isAuth, loading }) {
+//test
+import Navbar from "./components/b_navbar/Navbar";
+import TopBar from "./components/b_topbar/TopBar";
+import RightBar from "./components/b_rightbar/RightBar";
+import AddFriend from "./components/add-friend/AddFriend";
+import Profile from "./components/profile/Profile";
+import UserProfile from "./components/profile_friend/UserProfile";
+import CreateRoom from "./components/room_create/CreateRoom";
+import JoinRoom from "./components/room_join/JoinRoom";
+import Room from "./components/room/Room";
+import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import ChatMenu from "./components/chat-menu/ChatMenu";
+import Compose from "./components/document/compose/Compose";
+import Inbox from "./components/document/inbox/Inbox";
+import SendDocument from "./components/document/send/SendDocument";
+import Document from "./components/document/document-view/Document";
+import ChatFullscreen from "./components/message/chat_fullscreen/ChatFullscreen";
+import ChatBox from "./components/message/chat_box/ChatBox";
+
+function App({ user, chosenChatDetails, error, isAuth, conversations }) {
   const navigate = useNavigate();
   const location = useLocation();
-  console.log(location.pathname);
+
+  const [toggleFriend, setToggleFriend] = useState(true);
+  const [toggleChat, setToggleChat] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("auth-token");
@@ -43,48 +49,125 @@ function App({ user, chosenChatDetails, error, isAuth, loading }) {
     }
     isAuth(token);
     if (location.pathname.slice(0, 5) === "/auth") {
-      navigate("/");
+      navigate("/send-document");
     }
   }, [isAuth]);
   return (
-    <div className="h-screen w-screen dark:bg-primary bg-light-secondary ">
-      <Navbar />
-      <div className="grid grid-cols-6 h-[calc(100%_-_3.5rem)] max-w-screen-2xl">
-        {location.pathname.slice(0, 5) !== "/auth" && <Sidebar />}
-        <Routes>
-          <Route exact path="/" element={<Main />} />
-          <Route exact path="/add-friend" element={<AddFriend />} />
-          <Route exact path="/send-document" element={<SendDocument />} />
-          <Route exact path="/my-document" element={<MyDocument />} />
-          <Route exact path="/document/:documentId" element={<Document />} />
-          <Route
-            exact
-            path="/received-document/:documentId"
-            element={<RecievedDocument />}
+    <>
+      {location.pathname.slice(0, 5) !== "/auth" && user ? (
+        <div className="flex flex-col md:max-h-screen md:h-screen text-white h-screen bg-dark-primary">
+          <Navbar
+            setToggleFriend={setToggleFriend}
+            toggleFriend={toggleFriend}
+            toggleChat={toggleChat}
+            setToggleChat={setToggleChat}
+            conversations={conversations}
           />
-          <Route exact path="/inbox" element={<Inbox />} />
-          <Route exact path="/flow" element={<MyFlow />} />
-          <Route exact path="/messages" element={<Messages />} />
-          <Route exact path="/my-profile" element={<Profile user={user} />} />
-          <Route exact path="/profile/:userId" element={<UserProfile />} />
-          <Route exact path="/create-room" element={<CreateRoom />} />
-          <Route exact path="/join-room" element={<JoinRoom />} />
-          <Route exact path="/room" element={<Room />} />
-          <Route path="*" element={<NotFound />} />
+          <div
+            className={
+              location.pathname != "/room"
+                ? "w-full flex flex-col md:flex-row md:space-y-0 h-full md:max-h-[calc(100%_-_6rem)]"
+                : "w-full flex flex-col md:flex-row md:space-y-0 h-full md:max-h-[calc(100%_-_3rem)]"
+            }
+          >
+            <div
+              className={
+                toggleFriend
+                  ? "md:w-2/3 lg:w-3/4 flex flex-col"
+                  : "w-full flex flex-col"
+              }
+            >
+              <TopBar />
+              <div className="bg-dark-secondary h-full overflow-auto overflow-y-auto md:scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-100 border-0.5 border-dark-third">
+                <Routes>
+                  <Route exact path="/" element={<AddFriend />} />
+                  <Route exact path="/add-friend" element={<AddFriend />} />
+                  <Route
+                    exact
+                    path="/my-profile"
+                    element={<Profile user={user} />}
+                  />
+                  <Route
+                    exact
+                    path="/profile/:userId"
+                    element={<UserProfile />}
+                  />
+                  <Route exact path="/create-room" element={<CreateRoom />} />
+                  <Route exact path="/join-room" element={<JoinRoom />} />
+                  <Route exact path="/room" element={<Room />} />
+                  <Route exact path="/compose" element={<Compose />} />
+                  <Route
+                    exact
+                    path="/inbox"
+                    element={<Inbox email={user.email} />}
+                  />
+                  <Route
+                    exact
+                    path="/send-document"
+                    element={<SendDocument />}
+                  />
+                  <Route
+                    exact
+                    path="/document/:documentId"
+                    element={<Document email={user.email} />}
+                  />
+                  <Route
+                    exact
+                    path="/messages"
+                    element={<ChatFullscreen toggleFriend={toggleFriend} />}
+                  />
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </div>
+            </div>
 
-          <Route path="/auth/login" element={<SignIn />} />
-          <Route path="/auth/signup" element={<SignUp />} />
-          <Route path="/auth/verification" element={<EmailVerification />} />
-          <Route path="/auth/forget-password" element={<ForgetPassword />} />
-          <Route path="/auth/confirm-password" element={<ConfirmPassword />} />
-        </Routes>
-        {chosenChatDetails &&
-          location.pathname !== "/messages" &&
-          location.pathname.slice(0, 8) !== "/profile" && <Chatbox />}
-        {error && <ErrorNotification error={error} />}
-        {location.pathname.slice(0, 5) !== "/auth" && <Rightbar />}
-      </div>
-    </div>
+            <AnimatePresence>
+              {toggleFriend && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="bg-dark-primary md:w-1/3 lg:w-1/4 h-full md:h-full lg:h-full "
+                >
+                  <RightBar />
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+          {toggleChat && (
+            <ChatMenu
+              user={user}
+              chosenChatDetails={chosenChatDetails}
+              conversations={conversations}
+              setToggleChat={setToggleChat}
+            />
+          )}
+          {location.pathname !== "/room" && (
+            <footer className="bg-dark-primary p-1 h-12">
+              {/* <h1 className="text-2xl md:text-4xl text-white">Footer</h1> */}
+            </footer>
+          )}
+          {chosenChatDetails &&
+            location.pathname !== "/messages" &&
+            location.pathname.slice(0, 8) !== "/profile" && <ChatBox />}
+          {error && <ErrorNotification error={error} />}
+        </div>
+      ) : (
+        <div className="flex flex-col md:max-h-screen  md:h-screen text-white  bg-dark-primary">
+          <Routes>
+            <Route path="/auth/login" element={<SignIn />} />
+            <Route path="/auth/login" element={<SignIn />} />
+            <Route path="/auth/signup" element={<SignUp />} />
+            <Route path="/auth/verification" element={<EmailVerification />} />
+            <Route path="/auth/forget-password" element={<ForgetPassword />} />
+            <Route
+              path="/auth/confirm-password"
+              element={<ConfirmPassword />}
+            />
+          </Routes>
+        </div>
+      )}
+    </>
   );
 }
 

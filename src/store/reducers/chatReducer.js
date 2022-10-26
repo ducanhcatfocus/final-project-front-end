@@ -6,6 +6,7 @@ const initState = {
   page: 0,
   loading: false,
   typing: "",
+  newMessage: false,
 };
 
 const reducer = (state = initState, action) => {
@@ -29,8 +30,19 @@ const reducer = (state = initState, action) => {
       return { ...state, loading: action.loading };
     case "CHAT.SET_PAGE":
       return { ...state, page: action.page + 1 };
+    case "CHAT.SET_NEW_MESSAGE":
+      return { ...state, newMessage: true };
     case "CHAT.RESET_STATE":
-      return initState;
+      return {
+        ...state,
+        chosenChatDetails: null,
+        chatType: null,
+        messages: [],
+        loadMore: true,
+        page: 0,
+        loading: false,
+        typing: "",
+      };
     default:
       return state;
   }

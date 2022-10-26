@@ -4,10 +4,9 @@ import { connectWithSocketServer } from "../../socket/socketConnection";
 export const getActions = (dispatch) => {
   return {
     login: (userDetail, navigate) => dispatch(login(userDetail, navigate)),
-    register: (userDetail, navigate) =>
-      dispatch(register(userDetail, navigate)),
     logout: (navigate) => dispatch(logout(navigate)),
     changeAvatar: (avatar) => dispatch(changeAvatar(avatar)),
+    setError: (error) => dispatch(setError(error)),
     isAuth: (token) => dispatch(isAuth(token)),
   };
 };
@@ -18,17 +17,19 @@ const login = (userDetail, navigate) => {
     const { email, password } = userDetail;
     const { error, user } = await loginUser({ email, password });
     console.log(user);
+    console.log(error);
 
     if (error) {
+      dispatch({ type: "AUTH.SET_ERROR", error: error });
       dispatch({ type: "AUTH.SET_PENDING", isPending: false });
       return; // error handler
     }
     if (!user.isVerified) {
       dispatch({ type: "AUTH.SET_PENDING", isPending: false });
-      // navigate("/auth/verification", {
-      //   state: { user: user },
-      //   replace: true,
-      // });
+      navigate("/auth/verification", {
+        state: { user: user },
+        replace: true,
+      });
 
       return;
     }
@@ -52,29 +53,20 @@ const logout = (navigate) => {
   };
 };
 
-const register = (user, navigate) => {
-  //   return async (dispatch) => {
-  //     const { email, password } = user;
-  //     const { error, user } = await loginUser({ email, password });
-  //     if (error) return;
-  //     if (!user.isVerified) {
-  //       navigate("/auth/verification", { state: { user: user }, replace: true });
-  //       return;
-  //     }
-  //     localStorage.setItem("auth-token", user.token);
-  //     dispatch({ type: "AUTH.SET_USER_DETAIL", user });
-  //     navigate("/");
-  //   };
-};
-
 const changeAvatar = (avatar) => {
   return (dispatch) => {
     dispatch({ type: "AUTH.SET_AVATAR", avatar });
   };
 };
 
+const setError = (error) => {
+  return (dispatch) => {
+    dispatch({ type: "AUTH.SET_ERROR", error });
+    setTimeout(() => dispatch({ type: "AUTH.SET_ERROR", error: null }), 4000);
+  };
+};
+
 const isAuth = (token) => {
-  console.log("BACHHHHHHHHHHHHHHHHHHHH");
   return async (dispatch) => {
     const { error, user } = await getIsAuth(token);
     if (user) {

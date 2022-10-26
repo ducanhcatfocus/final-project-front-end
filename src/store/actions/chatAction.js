@@ -1,4 +1,4 @@
-import { getChat } from "../../api/chat";
+import { getChat, getAllConversations } from "../../api/chat";
 
 export const getActions = (dispatch) => {
   return {
@@ -89,5 +89,21 @@ const closeChat = () => {
 //   return {
 //     type: "CHAT.SET_MESSAGES",
 //     messages,
+//   };
+// };
+
+// const conversationList = () => {
+//   return async (dispatch) => {
+//     const data = await getAllConversations();
+//     console.log(data);
+//     // if (error) {
+//     //   console.log(error);
+//     //   return;
+//     // }
+//     console.log(data);
+//     dispatch({
+//       type: "CHAT.SET_CONVERSATIONS",
+//       conversations: data,
+//     });
 //   };
 // };

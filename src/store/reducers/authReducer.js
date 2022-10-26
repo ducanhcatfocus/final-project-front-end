@@ -1,6 +1,7 @@
 const initState = {
   user: null,
   isPending: false,
+  error: null,
 };
 
 const reducer = (state = initState, action) => {
@@ -11,6 +12,8 @@ const reducer = (state = initState, action) => {
       return { ...state, user: { ...state.user, avatar: action.avatar } };
     case "AUTH.SET_PENDING":
       return { ...state, isPending: action.isPending };
+    case "AUTH.SET_ERROR":
+      return { ...state, error: action.error };
     case "DEFAULT":
       return initState;
     default:

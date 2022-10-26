@@ -12,7 +12,7 @@ const Submit = ({ value, loading }) => {
           {value}
         </button>
       ) : (
-        <div className="w-full rounded dark:bg-white bg-third  h-10 flex items-center justify-center">
+        <div className="w-full rounded dark:bg-white bg-third  h-10 flex items-center justify-center text-dark-primary">
           <ImSpinner2 className="animate-spin " />
         </div>
       )}

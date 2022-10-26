@@ -53,22 +53,38 @@ export const connectWithSocketServer = (token) => {
 
   socket.on("update-chat", (data) => {
     console.log(data);
-    store.dispatch({
-      type: "CHAT.UPDATE_MESSAGES",
-      message: data,
-    });
-    store.dispatch({
-      type: "CHAT.SET_LOADING",
-      loading: false,
-    });
+    const isChosenChat = store.getState().chat.chosenChatDetails;
+    const user = store.getState().auth.user;
+    const conversations = store.getState().chat.conversations;
+
+    console.log(isChosenChat);
+    if (isChosenChat?.id === data.author._id || user.id === data.author._id) {
+      store.dispatch({
+        type: "CHAT.UPDATE_MESSAGES",
+        message: data,
+      });
+      store.dispatch({
+        type: "CHAT.SET_LOADING",
+        loading: false,
+      });
+    }
+    if (user.id !== data.author._id) {
+      store.dispatch({
+        type: "CHAT.SET_NEW_MESSAGE",
+      });
+    }
   });
 
   socket.on("update-typing", (data) => {
     console.log(data);
-    store.dispatch({
-      type: "CHAT.SET_TYPING",
-      typing: data,
-    });
+    const { id, type } = data;
+    const isChosenChat = store.getState().chat.chosenChatDetails;
+    if (isChosenChat?.id === id) {
+      store.dispatch({
+        type: "CHAT.SET_TYPING",
+        typing: type,
+      });
+    }
   });
 
   socket.on("room-create", (data) => {
@@ -110,8 +126,7 @@ export const connectWithSocketServer = (token) => {
   });
 
   socket.on("update-chat-room", (data) => {
-    console.log("chat come", data);
-
+    data.time = new Date().toLocaleTimeString("en-IT");
     store.dispatch({
       type: "ROOM.SET_MESSAGE",
       roomMessages: data,
@@ -173,7 +188,6 @@ export const leaveRoom = (data) => {
 };
 
 export const sendChatRoom = (data) => {
-  console.log(data);
   socket.emit("chat-room", data);
 };
 

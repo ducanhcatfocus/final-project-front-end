@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createUser } from "../../api/auth";
-import { useNotification } from "../../hooks";
 import { isValidEmail } from "../../utils/validate";
-import Container from "../Container";
-import CustomLink from "../CustomLink";
+import CustomLink from "../form/CustomLink";
 import FormInput from "../form/FormInput";
 import Notification from "../form/Notification";
 import Submit from "../form/Submit";
 import Title from "../form/Title";
+import { connect } from "react-redux";
+import { getActions } from "../../store/actions/authAction";
 
 const validateInfo = ({ name, password, email }) => {
   if (!name.trim()) return { status: false, error: "Name is missing!" };
@@ -26,7 +26,7 @@ const validateInfo = ({ name, password, email }) => {
   return { status: true };
 };
 
-const SignUp = () => {
+const SignUp = ({ error, setError }) => {
   const [userInfo, setUserInfo] = useState({
     name: "",
     email: "",
@@ -34,7 +34,6 @@ const SignUp = () => {
   });
 
   const navigate = useNavigate();
-  const { updateNotification, color, notification } = useNotification();
 
   const handleChange = ({ target }) => {
     const { value, name } = target;
@@ -44,55 +43,72 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { status, error } = validateInfo(userInfo);
-    if (!status) return updateNotification("error", error);
+    if (!status) {
+      setError(error);
+      return;
+    }
     const { error: err, user } = await createUser(userInfo);
-    if (err) return updateNotification("error", err);
+    if (err) {
+      setError(err);
+      return;
+    }
+    setError(null);
     navigate("/auth/login", { replace: true });
   };
 
   const { name, email, password } = userInfo;
   return (
-    <div className="col-span-6 bg-dark-primary  flex justify-center items-center">
-      <Container>
-        <form
-          onSubmit={handleSubmit}
-          className="bg-secondary rounded p-6 w-72 space-y-6 mx-auto"
-        >
-          <Title>Sign Up</Title>
-          {notification && (
-            <Notification color={color} notification={notification} />
-          )}
-          <FormInput
-            value={name}
-            label="Name"
-            placeholder="Das Doe"
-            name="name"
-            onChange={handleChange}
-          />
-          <FormInput
-            value={email}
-            label="Email"
-            placeholder="das@email.com"
-            name="email"
-            onChange={handleChange}
-          />
-          <FormInput
-            value={password}
-            label="Password"
-            placeholder="********"
-            name="password"
-            type="password"
-            onChange={handleChange}
-          />
-          <Submit value="Sign Up" />
-          <div className="flex justify-between">
-            <CustomLink to="/auth/forget-password">Forget Password</CustomLink>
-            <CustomLink to="/auth/login">Sign in</CustomLink>
-          </div>
-        </form>
-      </Container>
+    <div className="dark:bg-dark-primary bg-light-secondary w-full h-full grid">
+      <form
+        onSubmit={handleSubmit}
+        className="dark:bg-secondary bg-white drop-shadow-lg rounded p-6 w-72 space-y-6 mx-auto place-self-center"
+      >
+        <Title>Sign Up</Title>
+        {error && (
+          <Notification color={"border-red-500"} notification={error} />
+        )}
+        <FormInput
+          value={name}
+          label="Name"
+          placeholder="Das Doe"
+          name="name"
+          onChange={handleChange}
+        />
+        <FormInput
+          value={email}
+          label="Email"
+          placeholder="das@email.com"
+          name="email"
+          onChange={handleChange}
+        />
+        <FormInput
+          value={password}
+          label="Password"
+          placeholder="********"
+          name="password"
+          type="password"
+          onChange={handleChange}
+        />
+        <Submit value="Sign Up" />
+        <div className="flex justify-between">
+          <div className="text-gray-300">Already have an account?</div>
+          <CustomLink to="/auth/login">Log in</CustomLink>
+        </div>
+      </form>
     </div>
   );
 };
 
-export default SignUp;
+const mapActionToProps = (dispatch) => {
+  return {
+    ...getActions(dispatch),
+  };
+};
+
+const mapStateToProps = ({ auth }) => {
+  return {
+    ...auth,
+  };
+};
+
+export default connect(mapStateToProps, mapActionToProps)(SignUp);

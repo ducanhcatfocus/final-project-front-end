@@ -4,7 +4,7 @@ import { getActions } from "../store/actions/loadingAction";
 
 const ErrorNotification = ({ error, setDefaultError }) => {
   return (
-    <div className="absolute bottom-0 right-0 h-full w-full backdrop-brightness-25 flex">
+    <div className="absolute bottom-0 right-0 h-full w-full backdrop-brightness-25 flex overflow-hidden">
       <div className="w-80 h-48 bg-dark-third m-auto flex flex-col justify-between rounded">
         <div className="h-12 text-white font-semibold rounded-t flex items-center justify-center border-b-0.5 border-gray-500">
           {error.errorType}

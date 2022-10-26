@@ -1,8 +1,7 @@
 import React from "react";
-import MainPageContainer from "./MainPageContainer";
 
 const NotFound = () => {
-  return <MainPageContainer>NotFound</MainPageContainer>;
+  return <div>NotFound</div>;
 };
 
 export default NotFound;
