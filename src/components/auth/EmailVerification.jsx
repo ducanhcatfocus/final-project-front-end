@@ -106,13 +106,13 @@ const EmailVerification = ({ error, setError }) => {
       <form className="dark:bg-secondary bg-white drop-shadow-lg rounded p-6  space-y-6 mx-auto place-self-center">
         <button
           onClick={() => navigate("/auth/login")}
-          className="absolute top-1 right-1 text-white p-1 border-0.5 hover:border-white border-dark-third rounded-full"
+          className="absolute top-1 right-1 dark:text-white text-primary p-1 border-0.5 dark:hover:border-white border-dark-third rounded-full"
         >
           <AiOutlineClose className="h-5 w-5" />
         </button>
         <div>
           <Title>Enter your OTP to verify your account</Title>
-          <p className="text-center text-dark-subtle">
+          <p className="text-center dark:text-dark-subtle text-primary">
             OTP has been sent to your email
           </p>
         </div>
@@ -126,7 +126,7 @@ const EmailVerification = ({ error, setError }) => {
                 value={otp[index] || ""}
                 ref={activeOtpIndex === index ? inputRef : null}
                 type="number"
-                className="w-12 h-12 border-2 rounded border-dark-subtle focus:border-white bg-transparent outline-none text-center text-white font-semibold text-xl spin-button-none"
+                className="w-12 h-12 border-2 rounded dark:border-dark-subtle dark:focus:border-white bg-transparent outline-none text-center dark:text-white font-semibold text-xl spin-button-none text-primary"
               />
             );
           })}
