@@ -31,9 +31,9 @@ const RoomChat = ({
   return (
     <div className="w-64 p-2 h-full ">
       {openInfo ? (
-        <div className="bg-dark-third h-full rounded p-1 flex flex-col justify-between">
+        <div className="dark:bg-dark-third bg-light-primary h-full rounded p-1 flex flex-col justify-between">
           <div className="text-center h-10 font-semibold">Room ID</div>
-          <div className="flex justify-between text-xs text-gray-300 mb-2">
+          <div className="flex justify-between text-xs dark:text-gray-300 mb-2">
             <div>{roomId}</div>
             <button
               onClick={() => {
@@ -69,7 +69,7 @@ const RoomChat = ({
           </ul>
         </div>
       ) : (
-        <div className="bg-dark-third h-full rounded p-1 flex flex-col justify-between">
+        <div className="dark:bg-dark-third bg-light-primary h-full rounded p-1 flex flex-col justify-between">
           <div className="text-center h-20 font-semibold">Room Chat</div>
           <ul className="mb-auto h-96 overflow-auto scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-100 px-2">
             {roomMessages.map((r, index) => (
@@ -92,7 +92,7 @@ const RoomChat = ({
               onKeyDown={handleKeyDown}
               type="text"
               placeholder="send message to everyone"
-              className=" p-1 h-full w-full rounded-lg text text-gray-900 bg-gray-50  dark:placeholder-gray-400 focus:outline-none"
+              className=" p-1 h-full w-full rounded-lg text text-gray-900 dark:bg-gray-50 dark:placeholder-gray-400 focus:outline-none"
             />
           </div>
         </div>

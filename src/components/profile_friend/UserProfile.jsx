@@ -51,10 +51,10 @@ const UserProfile = ({ friends, setChosenChatDetails }) => {
     navigate("/messages");
   };
   return (
-    <div className="absolute bottom-0 right-0 h-full w-full backdrop-brightness-25 flex text-white">
+    <div className="absolute bottom-0 right-0 h-full w-full backdrop-brightness-25 flex dark:text-white">
       <div
         ref={ref}
-        className="lg:w-1/2 lg:h-3/4 md:w-3/4 md:h-1/2 w-80 h-2/3  bg-dark-third m-auto flex flex-col justify-between rounded"
+        className="lg:w-1/2 lg:h-3/4 md:w-3/4 md:h-1/2 w-80 h-2/3 dark:bg-dark-third bg-light-primary m-auto flex flex-col justify-between rounded"
       >
         <div
           className="h-1/3  font-semibold rounded-t flex items-center justify-center border-b-0.5 border-gray-500 relative"
@@ -62,7 +62,7 @@ const UserProfile = ({ friends, setChosenChatDetails }) => {
             backgroundColor: userProfile?.background,
           }}
         >
-          <div className="absolute bottom-0 left-5  translate-y-1/2">
+          <div className="absolute bottom-0 left-5 translate-y-1/2">
             <img
               src={
                 userProfile
@@ -70,18 +70,20 @@ const UserProfile = ({ friends, setChosenChatDetails }) => {
                   : "https://res.cloudinary.com/dzhpyrb7b/image/upload/v1659260703/default-avatar_uu3qqx.jpg"
               }
               alt=""
-              className="h-32 w-32 rounded-full border-8 border-dark-third "
+              className="h-32 w-32 rounded-full border-8 dark:border-dark-third "
             />
           </div>
         </div>
         <div className="font-semibold flex justify-end p-5">
           <button
             onClick={handleChooseActiveConversation}
-            className="bg-green-700 text-sm p-1 mr-2 rounded "
+            className="bg-green-500 hover:bg-green-600 text-sm p-1 mr-2 rounded "
           >
             Message
           </button>
-          <button className="bg-red-500 text-sm p-1 rounded">Remove</button>
+          <button className="bg-red-500 hover:bg-red-600 text-sm p-1 rounded">
+            Remove
+          </button>
         </div>
         <div className="mb-auto mx-5">
           <div className="font-semibold mb-5">
@@ -93,19 +95,31 @@ const UserProfile = ({ friends, setChosenChatDetails }) => {
           <div className="flex justify-start gap-5 text-sm border-b-0.5 border-gray-500 text-gray-400">
             <button
               onClick={() => setTag("about")}
-              className={tag === "about" ? `border-b text-white` : null}
+              className={
+                tag === "about"
+                  ? `border-b dark:text-white text-slate-600`
+                  : null
+              }
             >
               About
             </button>
             <button
               onClick={() => setTag("info")}
-              className={tag === "info" ? `border-b text-white` : null}
+              className={
+                tag === "info"
+                  ? `border-b dark:text-white text-slate-600`
+                  : null
+              }
             >
               Information
             </button>
             <button
               onClick={() => setTag("contact")}
-              className={tag === "contact" ? `border-b text-white` : null}
+              className={
+                tag === "contact"
+                  ? `border-b dark:text-white text-slate-600`
+                  : null
+              }
             >
               Contact
             </button>
@@ -119,7 +133,11 @@ const UserProfile = ({ friends, setChosenChatDetails }) => {
                 );
                 console.log(mutualFriends);
               }}
-              className={tag === "mutual" ? `border-b text-white` : null}
+              className={
+                tag === "mutual"
+                  ? `border-b dark:text-white text-slate-600`
+                  : null
+              }
             >
               Mutual Friends
             </button>
@@ -158,7 +176,7 @@ const UserProfile = ({ friends, setChosenChatDetails }) => {
                   : mutualFriends.map((f) => (
                       <li
                         key={f._id}
-                        className=" hover:backdrop-brightness-75 rounded"
+                        className="dark:hover:backdrop-brightness-75 hover:bg-light-secondary  rounded"
                       >
                         <Link
                           to={`/profile/${f._id}`}

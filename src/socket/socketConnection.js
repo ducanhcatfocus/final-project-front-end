@@ -6,7 +6,7 @@ import {
   handleUserLeftRoom,
 } from "./webRTCHandle";
 
-let socket = null;
+export let socket = null;
 
 const socketURL =
   process.env.REACT_APP_NOT_SECRET_CODE === "production"
@@ -108,6 +108,9 @@ export const connectWithSocketServer = (token) => {
       friends.forEach((f) => {
         if (f._id === room.roomCreator.userId && !room.roomPrivate) {
           rooms.push(room);
+          alert(
+            "A friend create a room" + ":" + store.getState().auth.user.name
+          );
         }
       });
     });
@@ -159,6 +162,19 @@ export const connectWithSocketServer = (token) => {
   socket.on("room-participant-left", (data) => {
     console.log("User left room");
     handleUserLeftRoom(data);
+  });
+
+  socket.on("join-room-error", (data) => {
+    console.log(data);
+    const localStream = store.getState().room.localStream;
+    if (localStream) {
+      localStream.getTracks().forEach((track) => track.stop());
+      store.dispatch({
+        type: "ROOM.SET_LOCAL_STREAM",
+        localStream: null,
+      });
+    }
+    alert(data);
   });
 };
 

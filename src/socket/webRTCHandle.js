@@ -5,6 +5,7 @@ import { signalPeerData } from "./socketConnection";
 const getConfig = () => {
   const turnIceServers = null;
   if (turnIceServers) {
+    //TURN server
   } else {
     console.warn("Using only STUN server");
     return {
@@ -116,6 +117,8 @@ export const handleUserLeftRoom = (data) => {
 };
 
 export const switchOutgoingTracks = (stream) => {
+  console.log(stream);
+  console.log(peers);
   for (let socket_id in peers) {
     for (let index in peers[socket_id].streams[0].getTracks()) {
       for (let index2 in stream.getTracks()) {

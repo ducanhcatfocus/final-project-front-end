@@ -16,9 +16,6 @@ const login = (userDetail, navigate) => {
     dispatch({ type: "AUTH.SET_PENDING", isPending: true });
     const { email, password } = userDetail;
     const { error, user } = await loginUser({ email, password });
-    console.log(user);
-    console.log(error);
-
     if (error) {
       dispatch({ type: "AUTH.SET_ERROR", error: error });
       dispatch({ type: "AUTH.SET_PENDING", isPending: false });
@@ -40,7 +37,7 @@ const login = (userDetail, navigate) => {
     dispatch({
       type: "LOADING.SET_LOADING",
     });
-    navigate("/");
+    navigate("/", { replace: true });
   };
 };
 

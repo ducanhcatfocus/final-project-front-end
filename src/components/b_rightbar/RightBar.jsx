@@ -22,9 +22,14 @@ const RightBar = ({ friendList, friends, onlineUsers }) => {
   }, []);
 
   return (
-    <div className="h-48 text-lg md:h-full lg:h-full overflow-auto md:scrollbar  scrollbar-thumb-gray-900 scrollbar-track-gray-100">
+    <div className="h-48 text-lg md:h-full lg:h-full overflow-auto md:scrollbar dark:scrollbar-thumb-gray-400 scrollbar-thumb-gray-300 scrollbar-track-gray-100 dark:scrollbar-track-dark-third bg-light-primary dark:bg-dark-primary border-t dark:border-none">
       <SearchFriend setSearchValue={setSearchValue} />
-      {checkOnlineUsers(friends, onlineUsers).map((f) => {
+      {friends.length === 0 && (
+        <div className="text-center dark:text-gray-500 text-gray-300">
+          No friend
+        </div>
+      )}
+      {checkOnlineUsers(friends, onlineUsers).map((f, index) => {
         if (!searchValue) {
           return (
             <Friends

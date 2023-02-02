@@ -27,7 +27,7 @@ const Profile = ({ user }) => {
         <motion.div
           layoutId="about-me"
           onClick={() => setSelectedId("about-me")}
-          className=" bg-dark-third rounded p-2 pb-2 h-full"
+          className="dark:bg-dark-third bg-light-primary rounded p-2 pb-2 h-full"
         >
           <div className="font-semibold mb-1">ABOUT ME</div>
           <div className="whitespace-normal break-all text-sm font-light">
@@ -51,7 +51,7 @@ const Profile = ({ user }) => {
         <motion.div
           layoutId="preview"
           onClick={() => setSelectedId("preview")}
-          className=" bg-dark-third rounded h-full relative"
+          className="dark:bg-dark-third bg-light-primary rounded h-full relative"
         >
           <div
             className="h-1/2 w-full rounded"
@@ -75,7 +75,7 @@ const Profile = ({ user }) => {
         <motion.div
           layoutId="intro"
           onClick={() => setSelectedId("intro")}
-          className=" bg-dark-third rounded p-2 pb-2 h-full"
+          className="dark:bg-dark-third bg-light-primary rounded p-2 pb-2 h-full"
         >
           <div className="font-semibold mb-1">INTRODUCTION</div>
 
@@ -105,7 +105,7 @@ const Profile = ({ user }) => {
           ) : (
             <div>
               <img
-                className=""
+                className="w-1/2"
                 alt=""
                 src="https://res.cloudinary.com/dzhpyrb7b/image/upload/v1660484445/default/NicePng_funny-cat-png_10122537_gnsufj.png"
               />
@@ -120,7 +120,7 @@ const Profile = ({ user }) => {
         <motion.div
           layoutId="contact"
           onClick={() => setSelectedId("contact")}
-          className=" bg-dark-third rounded   p-2 pb-2 h-full"
+          className="dark:bg-dark-third bg-light-primary rounded p-2 pb-2 h-full"
         >
           <div className="font-semibold mb-1">CONTACT</div>
           {userProfile.phoneNumber !== "" ? (
@@ -138,7 +138,7 @@ const Profile = ({ user }) => {
           ) : (
             <div>
               <img
-                className=""
+                className="w-1/2"
                 alt=""
                 src="https://res.cloudinary.com/dzhpyrb7b/image/upload/v1660484445/default/NicePng_funny-cat-png_10122537_gnsufj.png"
               />

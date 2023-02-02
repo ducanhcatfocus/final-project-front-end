@@ -39,7 +39,7 @@ const ChatInput = ({
     <div className="flex">
       <label
         htmlFor="fileId"
-        className="p-2 rounded-full hover:bg-dark-third cursor-pointer mr-1"
+        className="p-2 rounded-full dark:hover:bg-dark-third hover:bg-light-secondary cursor-pointer mr-1"
       >
         <BsImages className="h-7 w-7" />
         <input
@@ -50,7 +50,7 @@ const ChatInput = ({
           onChange={changeFileHandler}
         />
       </label>
-      <div className="p-2 rounded-full hover:bg-dark-third cursor-pointer mr-1 relative">
+      <div className="p-2 rounded-full dark:hover:bg-dark-third hover:bg-light-secondary cursor-pointer mr-1 relative">
         {toggleEmoji && (
           <div className="absolute bottom-12">
             <EmojiPicker

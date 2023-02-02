@@ -125,11 +125,11 @@ const Room = ({
                     openChat={openChat}
                     userName={
                       roomFilter(roomDetails.participants, user.id)[index]
-                        .userName
+                        ?.userName
                     }
                     userAvatar={
                       roomFilter(roomDetails.participants, user.id)[index]
-                        .userAvatar
+                        ?.userAvatar
                     }
                     setToggleFullVideo={setToggleFullVideo}
                   />
@@ -146,12 +146,12 @@ const Room = ({
               />
             ) : null}
           </div>
-          <div className=" h-12 w-full lg:bottom-0 bottom-0 py-1 px-2 bg-dark-primary border-t-0.5 border-dark-third flex justify-between rounded left-0 right-0">
+          <div className=" h-12 w-full lg:bottom-0 bottom-0 py-1 px-2 dark:bg-dark-primary bg-light-primary border-t-0.5 dark:border-dark-third flex justify-between left-0 right-0">
             <div className="font-semibold">{roomDetails.roomName}</div>
             <div className="flex gap-2">
               <button
                 onClick={handleToggleAudio}
-                className=" bg-dark-third hover:bg-gray-600 h-10 w-10 rounded-full p-1 flex"
+                className="dark:bg-dark-third dark:hover:bg-gray-600 hover:bg-slate-300 h-10 w-10 rounded-full p-1 flex"
               >
                 {audioEnable ? (
                   <AiOutlineAudio className="h-6 w-6 mx-auto my-auto " />
@@ -161,7 +161,7 @@ const Room = ({
               </button>
               <button
                 onClick={handleToggleCamera}
-                className=" h-10 w-10 rounded-full p-1 flex bg-dark-third hover:bg-gray-600"
+                className=" h-10 w-10 rounded-full p-1 flex dark:bg-dark-third dark:hover:bg-gray-600 hover:bg-slate-300"
               >
                 {cameraEnable ? (
                   <BsCameraVideo className="h-6 w-6 mx-auto my-auto" />
@@ -171,15 +171,15 @@ const Room = ({
               </button>
               <button
                 onClick={handleToggleScreen}
-                className="h-10 w-10 rounded-full p-1 flex bg-dark-third hover:bg-gray-600"
+                className="h-10 w-10 rounded-full p-1 flex dark:bg-dark-third dark:hover:bg-gray-600 hover:bg-slate-300"
               >
                 <MdOutlineScreenShare className="h-6 w-6 mx-auto my-auto" />
               </button>
               <button
                 onClick={handleLeaveRoom}
-                className=" h-10 w-10 rounded-full p-1 flex bg-red-700 hover:bg-red-500"
+                className=" h-10 w-10 rounded-full p-1 flex bg-red-600 hover:bg-red-700"
               >
-                <MdCallEnd className="h-6 w-6 mx-auto my-auto" />
+                <MdCallEnd className="h-6 w-6 mx-auto my-auto text-white" />
               </button>
             </div>
             <div className="flex gap-2">
@@ -193,7 +193,7 @@ const Room = ({
                   }
                   setOpenInfo(!openInfo);
                 }}
-                className=" h-10 w-10 rounded-full p-1 flex bg-dark-secondary hover:bg-gray-600"
+                className=" h-10 w-10 rounded-full p-1 flex dark:bg-dark-third dark:hover:bg-gray-600 hover:bg-slate-300"
               >
                 <AiOutlineQuestion className="h-6 w-6 mx-auto my-auto" />
               </button>
@@ -206,7 +206,7 @@ const Room = ({
                     setOpenInfo(!openInfo);
                   }
                 }}
-                className="h-10 w-10 rounded-full p-1 flex bg-dark-secondary hover:bg-gray-600"
+                className="h-10 w-10 rounded-full p-1 flex dark:bg-dark-third dark:hover:bg-gray-600 hover:bg-slate-300"
               >
                 <BsChatLeftText className="h-6 w-6 mx-auto my-auto" />
               </button>

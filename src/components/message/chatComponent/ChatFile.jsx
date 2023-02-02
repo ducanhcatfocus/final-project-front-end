@@ -19,7 +19,7 @@ const ChatFile = ({ file, handleRemoveFile }) => {
               />
               <AiOutlineClose
                 onClick={() => handleRemoveFile(index)}
-                className="h-5 w-5 absolute top-0 right-2 rounded-full bg-dark-third hover:bg-slate-600 p-1 border"
+                className="h-5 w-5 absolute top-0 right-2 rounded-full dark:bg-dark-third bg-light-secondary hover:bg-slate-300 dark:hover:bg-slate-600 p-1 border text-red-500"
               />
             </div>
           );
@@ -33,7 +33,7 @@ const ChatFile = ({ file, handleRemoveFile }) => {
               <AiOutlinePlayCircle className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-5 w-5" />
               <AiOutlineClose
                 onClick={() => handleRemoveFile(index)}
-                className="h-5 w-5 absolute top-0 right-0 rounded-full bg-dark-third hover:bg-slate-600 p-1 border"
+                className="h-5 w-5 absolute top-0 right-0 rounded-full dark:bg-dark-third bg-light-secondary hover:bg-slate-300 dark:hover:bg-slate-600 p-1 border text-red-500"
               />
             </div>
           );
@@ -47,7 +47,7 @@ const ChatFile = ({ file, handleRemoveFile }) => {
             {f.name}
             <AiOutlineClose
               onClick={() => handleRemoveFile(index)}
-              className="h-5 w-5 absolute top-0 right-0 rounded-full bg-dark-third hover:bg-slate-600 p-1 border"
+              className="h-5 w-5 absolute top-0 right-0 rounded-full dark:bg-dark-third bg-light-secondary hover:bg-slate-300 dark:hover:bg-slate-600 p-1 border text-red-500"
             />
           </div>
         );

@@ -63,9 +63,9 @@ const CreateRoom = ({ user, roomDetails }) => {
   };
 
   return (
-    <div className="w-full mx-auto p-5 border-b-0.5 border-dark-third space-y-3">
-      <h1 className="text-white font-semibold">CREATE ROOM</h1>
-      <span className="text-gray-400">
+    <div className="w-full mx-auto p-5 space-y-3">
+      <h1 className="dark:text-white font-semibold">CREATE ROOM</h1>
+      <span className="dark:text-gray-400">
         You can add create room chat with room name and password
       </span>
       <label
@@ -116,8 +116,8 @@ const CreateRoom = ({ user, roomDetails }) => {
         onClick={handleSubmit}
         className={
           !roomInfo.name
-            ? "w-1/5 bg-blue-900 p-1 m-2  rounded cursor-not-allowed self-center text-gray-400"
-            : "w-1/5 bg-blue-500 p-1 m-2  rounded self-center"
+            ? "w-1/5 dark:bg-blue-900 bg-blue-800 p-1 m-2  rounded cursor-not-allowed self-center text-gray-400"
+            : "w-1/5 bg-blue-500 hover:bg-blue-600 p-1 m-2  rounded self-center"
         }
         disabled={!roomInfo.name}
       >

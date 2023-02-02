@@ -14,7 +14,7 @@ const Friends = ({ avatar, name, isOnline, id, setChosenChatDetails }) => {
     <div
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
-      className="m-2 h-20 px-3 flex justify-between gap-2 items-center hover:bg-slate-500 rounded-lg  cursor-pointer"
+      className="m-2 h-20 px-3 flex justify-between gap-2 items-center hover:bg-slate-300 dark:hover:bg-slate-500 rounded-lg cursor-pointer bg-light-secondary dark:bg-dark-primary mr-4"
       draggable
     >
       <div
@@ -28,7 +28,7 @@ const Friends = ({ avatar, name, isOnline, id, setChosenChatDetails }) => {
       {isHover && (
         <button
           onClick={() => navigate(`/profile/${id}`)}
-          className="h-10 w-10 rounded-full border ml-auto self-center hover:bg-dark-third"
+          className="h-10 w-10 rounded-full border text-white border-white ml-auto self-center dark:hover:bg-dark-third hover:bg-light-secondary"
         >
           ...
         </button>

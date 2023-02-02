@@ -26,12 +26,12 @@ const RoomVideo = ({
         <video
           onClick={() => setToggleFullVideo(stream)}
           ref={videoRef}
-          className="rounded-lg border-0.5 border-dark-third  cursor-pointer"
+          className="rounded-lg border-0.5 dark:border-dark-third cursor-pointer"
           autoPlay
           muted={isLocalStream ? true : false}
           width="750"
         />
-        <div className="absolute top-1 left-1 flex gap-1 items-center bg-dark-third p-1 rounded-lg">
+        <div className="absolute top-1 left-1 flex gap-1 items-center text-white p-1 rounded-lg">
           <img src={userAvatar} className="h-10 w-10 rounded-full" />
           {userName}
         </div>

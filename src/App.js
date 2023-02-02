@@ -27,12 +27,14 @@ import Room from "./components/room/Room";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import ChatMenu from "./components/chat-menu/ChatMenu";
+import Notification from "./components/notification/Notification";
 import Compose from "./components/document/compose/Compose";
 import Inbox from "./components/document/inbox/Inbox";
 import SendDocument from "./components/document/send/SendDocument";
 import Document from "./components/document/document-view/Document";
 import ChatFullscreen from "./components/message/chat_fullscreen/ChatFullscreen";
 import ChatBox from "./components/message/chat_box/ChatBox";
+import Guild from "./components/guild/Guild";
 
 function App({ user, chosenChatDetails, error, isAuth, conversations }) {
   const navigate = useNavigate();
@@ -40,6 +42,7 @@ function App({ user, chosenChatDetails, error, isAuth, conversations }) {
 
   const [toggleFriend, setToggleFriend] = useState(true);
   const [toggleChat, setToggleChat] = useState(false);
+  const [toggleNotification, setToggleNotification] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("auth-token");
@@ -55,13 +58,15 @@ function App({ user, chosenChatDetails, error, isAuth, conversations }) {
   return (
     <>
       {location.pathname.slice(0, 5) !== "/auth" && user ? (
-        <div className="flex flex-col md:max-h-screen md:h-screen text-white h-screen bg-dark-primary">
+        <div className="flex flex-col md:max-h-screen md:h-screen text-dark-primary dark:text-white h-screen dark:bg-dark-primary">
           <Navbar
             setToggleFriend={setToggleFriend}
             toggleFriend={toggleFriend}
             toggleChat={toggleChat}
             setToggleChat={setToggleChat}
             conversations={conversations}
+            toggleNotification={toggleNotification}
+            setToggleNotification={setToggleNotification}
           />
           <div
             className={
@@ -78,9 +83,9 @@ function App({ user, chosenChatDetails, error, isAuth, conversations }) {
               }
             >
               <TopBar />
-              <div className="bg-dark-secondary h-full overflow-auto overflow-y-auto md:scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-100 border-0.5 border-dark-third">
+              <div className="dark:bg-dark-secondary bg-light-fourth h-full overflow-auto overflow-y-auto md:scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-100 border-0.5 dark:border-dark-third">
                 <Routes>
-                  <Route exact path="/" element={<AddFriend />} />
+                  <Route exact path="/" element={<Guild />} />
                   <Route exact path="/add-friend" element={<AddFriend />} />
                   <Route
                     exact
@@ -116,6 +121,7 @@ function App({ user, chosenChatDetails, error, isAuth, conversations }) {
                     path="/messages"
                     element={<ChatFullscreen toggleFriend={toggleFriend} />}
                   />
+                  <Route exact path="/guild" element={<Guild />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </div>
@@ -127,7 +133,7 @@ function App({ user, chosenChatDetails, error, isAuth, conversations }) {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  className="bg-dark-primary md:w-1/3 lg:w-1/4 h-full md:h-full lg:h-full "
+                  className="md:w-1/3 lg:w-1/4 h-full md:h-full lg:h-full "
                 >
                   <RightBar />
                 </motion.div>
@@ -142,8 +148,9 @@ function App({ user, chosenChatDetails, error, isAuth, conversations }) {
               setToggleChat={setToggleChat}
             />
           )}
+          {toggleNotification && <Notification />}
           {location.pathname !== "/room" && (
-            <footer className="bg-dark-primary p-1 h-12">
+            <footer className="dark:bg-dark-primary bg-light-primary p-1 h-12">
               {/* <h1 className="text-2xl md:text-4xl text-white">Footer</h1> */}
             </footer>
           )}
@@ -153,7 +160,7 @@ function App({ user, chosenChatDetails, error, isAuth, conversations }) {
           {error && <ErrorNotification error={error} />}
         </div>
       ) : (
-        <div className="flex flex-col md:max-h-screen  md:h-screen text-white  bg-dark-primary">
+        <div className="flex flex-col md:max-h-screen  md:h-screen text-white">
           <Routes>
             <Route path="/auth/login" element={<SignIn />} />
             <Route path="/auth/login" element={<SignIn />} />

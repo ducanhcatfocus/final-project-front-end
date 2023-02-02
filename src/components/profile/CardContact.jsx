@@ -20,6 +20,7 @@ const CardContact = ({
 
   const handleTextChange = (e) => {
     const { value, name } = e.target;
+    if (name === "phoneNumber" && value.length > 10) return;
     setText({ ...text, [name]: value });
     if (value !== defaultValue[name]) {
       setChange(true);
@@ -72,9 +73,9 @@ const CardContact = ({
         </div>
         <div className="p-1 border-2 border-dark-secondary mt-2 rounded ">
           <input
-            className="p-1 w-full text-gray-900 bg-gray-50 dark:bg-dark-third dark:placeholder-gray-400 dark:text-white focus:outline-none"
-            type="text"
-            maxLength="20"
+            className="p-1 w-full text-gray-900 bg-gray-50 dark:bg-dark-third dark:placeholder-gray-400 dark:text-white focus:outline-none spin-button-none"
+            type="number"
+            max="9999999999"
             placeholder="None"
             name="phoneNumber"
             value={text.phoneNumber}

@@ -84,7 +84,7 @@ const ChatBox = ({
     if (isBottom) {
       bottomRef.current?.scrollIntoView({ block: "start" });
     }
-  }, [messages, typing]);
+  }, [messages, typing, open]);
 
   const changeFileHandler = (event) => {
     if (event.target.files[0].size > 5242880) {
@@ -102,7 +102,10 @@ const ChatBox = ({
   };
 
   const handleKeyDown = (e) => {
-    if ((e.key === "Enter" && chat.length > 0) || file.length > 0) {
+    if (
+      (e.key === "Enter" && chat.length > 0) ||
+      (e.key === "Enter" && file.length > 0)
+    ) {
       sendDirectMessage({
         receiverId: chosenChatDetails.id,
         content: chat,
@@ -137,9 +140,9 @@ const ChatBox = ({
         <motion.div
           animate={{ x: goLeft }}
           transition={{ stiffness: 100 }}
-          className="absolute bottom-0 right-0 h-96 w-80 dark:bg-dark-third bg-light-primary rounded-t-lg flex flex-col justify-between dark:text-white text-dark-secondary border border-dark-secondary "
+          className="absolute bottom-0 right-0 h-96 w-80 dark:bg-dark-third bg-light-primary rounded-t-lg flex flex-col justify-between dark:text-white text-dark-secondary border dark:border-dark-secondary "
         >
-          <div className="flex justify-between p-1 border-b-0.5 border-dark-secondary">
+          <div className="flex justify-between p-1 border-b-0.5 dark:border-dark-secondary">
             <div className="relative">
               <img
                 src={chosenChatDetails.avatar}
@@ -162,33 +165,33 @@ const ChatBox = ({
             </div>
             <div className="ml-auto">
               <AiOutlineFullscreen
-                className="w-7 h-7 rounded-full hover:bg-slate-600 p-1"
+                className="w-7 h-7 rounded-full dark:hover:bg-slate-600 hover:bg-light-secondary p-1"
                 onClick={() => navigate("/messages")}
               />
             </div>
             {goLeft !== 0 ? (
               <div className="items-center" onClick={() => setGoLeft(0)}>
-                <AiOutlineDoubleRight className="w-7 h-7 rounded-full hover:bg-slate-600 p-1" />
+                <AiOutlineDoubleRight className="w-7 h-7 rounded-full dark:hover:bg-slate-600 hover:bg-light-secondary p-1" />
               </div>
             ) : (
               <div
                 className="items-center"
                 onClick={() => setGoLeft(-window.innerWidth + 320)}
               >
-                <AiOutlineDoubleLeft className="w-7 h-7 rounded-full hover:bg-slate-600 p-1" />
+                <AiOutlineDoubleLeft className="w-7 h-7 rounded-full dark:hover:bg-slate-600 hover:bg-light-secondary p-1" />
               </div>
             )}
 
             <div className="items-center" onClick={() => setOpen(!open)}>
-              <AiOutlineLine className="w-7 h-7 rounded-full hover:bg-slate-600 p-1" />
+              <AiOutlineLine className="w-7 h-7 rounded-full dark:hover:bg-slate-600 hover:bg-light-secondary p-1" />
             </div>
             <div className="ml-1" onClick={() => closeChat()}>
-              <AiOutlineClose className="w-7 h-7 rounded-full hover:bg-slate-600 p-1" />
+              <AiOutlineClose className="w-7 h-7 rounded-full dark:hover:bg-slate-600 hover:bg-light-secondary p-1" />
             </div>
           </div>
           <div
             onScroll={(e) => handleScroll(e)}
-            className="mb-auto p-1 overflow-y-auto scrollbar scrollbar-thumb-gray-500 scrollbar-track-dark-third relative border-b-0.5 border-dark-secondary"
+            className="mb-auto p-1 overflow-y-auto scrollbar dark:scrollbar-thumb-gray-400 scrollbar-thumb-gray-300 scrollbar-track-gray-100 dark:scrollbar-track-dark-third relative border-b-0.5 dark:border-dark-secondary"
             ref={scrollRef}
           >
             {loadMore ? (
@@ -271,7 +274,7 @@ const ChatBox = ({
                 onClick={() => {
                   bottomRef.current.scrollIntoView({ block: "start" });
                 }}
-                className="h-4  hover:bg-slate-500 w-full text-xs rounded mb-1"
+                className="h-4 dark:hover:bg-slate-500 hover:bg-light-secondary w-full text-xs rounded mb-1"
               >
                 Go to bot
               </button>
@@ -293,9 +296,9 @@ const ChatBox = ({
         <motion.div
           animate={{ x: goLeft }}
           transition={{ stiffness: 100 }}
-          className="absolute bottom-0 right-0 w-80 dark:bg-dark-third bg-light-primary rounded-t-lg dark:text-white text-dark-secondary border-t border-x border-dark-secondary"
+          className="absolute bottom-0 right-0 w-80 dark:bg-dark-third bg-light-primary rounded-t-lg dark:text-white text-dark-secondary border-t border-x dark:border-dark-secondary"
         >
-          <div className="flex justify-between border-b-0.5 border-dark-secondary items-center">
+          <div className="flex justify-between border-b-0.5 dark:border-dark-secondary items-center">
             <div className="">
               <img
                 src={chosenChatDetails.avatar}
@@ -308,28 +311,28 @@ const ChatBox = ({
             </div>
             <div className="ml-auto">
               <AiOutlineFullscreen
-                className="w-7 h-7 rounded-full hover:bg-slate-600 p-1"
+                className="w-7 h-7 rounded-full dark:hover:bg-slate-600 hover:bg-light-secondary p-1"
                 onClick={() => navigate("/messages")}
               />
             </div>
             {goLeft !== 0 ? (
               <div className="items-center" onClick={() => setGoLeft(0)}>
-                <AiOutlineDoubleRight className="w-7 h-7 rounded-full hover:bg-slate-600 p-1" />
+                <AiOutlineDoubleRight className="w-7 h-7 rounded-full dark:hover:bg-slate-600 hover:bg-light-secondary p-1" />
               </div>
             ) : (
               <div
                 className="items-center"
                 onClick={() => setGoLeft(-window.innerWidth + 320)}
               >
-                <AiOutlineDoubleLeft className="w-7 h-7 rounded-full hover:bg-slate-600 p-1" />
+                <AiOutlineDoubleLeft className="w-7 h-7 rounded-full dark:hover:bg-slate-600 hover:bg-light-secondary p-1" />
               </div>
             )}
 
             <div className="items-center" onClick={() => setOpen(!open)}>
-              <AiOutlineLine className="w-7 h-7 rounded-full hover:bg-slate-600 p-1" />
+              <AiOutlineLine className="w-7 h-7 rounded-full dark:hover:bg-slate-600 hover:bg-light-secondary p-1" />
             </div>
             <div className="ml-1" onClick={() => closeChat()}>
-              <AiOutlineClose className="w-7 h-7 rounded-full hover:bg-slate-600 p-1" />
+              <AiOutlineClose className="w-7 h-7 rounded-full dark:hover:bg-slate-600 hover:bg-light-secondary p-1" />
             </div>
           </div>
         </motion.div>

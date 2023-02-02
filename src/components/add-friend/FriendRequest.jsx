@@ -16,16 +16,21 @@ const FriendRequest = ({
   return (
     <div className="w-full mx-auto px-5 pt-3 space-y-3">
       <h1 className="text-white font-semibold">FRIEND REQUESTS</h1>
+      {pendingFriendInvitation.length === 0 && (
+        <div className="text-center dark:text-gray-500 text-gray-300">
+          No friend request
+        </div>
+      )}
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5">
         {pendingFriendInvitation.map((invitation) => (
           <div
             key={invitation._id}
-            className="bg-dark-third border-2 border-dark-third rounded-t-2xl"
+            className="dark:bg-dark-third bg-light-primary border-2 dark:border-dark-third rounded-t-2xl"
           >
             <img
-              src="https://scontent.fhan19-1.fna.fbcdn.net/v/t1.6435-1/196816422_615325399426758_5926012258863928099_n.jpg?stp=dst-jpg_s480x480&_nc_cat=109&ccb=1-7&_nc_sid=7206a8&_nc_ohc=Q2lQ3vjRTiIAX9DrvaD&_nc_ht=scontent.fhan19-1.fna&oh=00_AT9fRJ8CNINkOgOxkn_Ar3r8HAO8__-ym3eLqtMwzdB1mQ&oe=636107AD"
+              src={invitation.senderId.avatar}
               alt=""
-              className="w-full"
+              className="w-full rounded-t-2xl"
             />
             <div className="px-5 md:px-1 truncate">
               {invitation.senderId.name}
@@ -36,13 +41,13 @@ const FriendRequest = ({
             <div className="flex justify-between px-5 md:px-1 py-1">
               <button
                 onClick={() => acceptInvitationHandler(invitation._id)}
-                className="bg-blue-500 px-3 md:px-2 lg:px-8 py-1 rounded-lg hover:bg-blue-400"
+                className="bg-blue-500 px-3 md:px-2 lg:px-8 py-1 rounded-lg hover:bg-blue-600"
               >
                 Accept
               </button>
               <button
                 onClick={() => rejectInvitationHandle(invitation._id)}
-                className="border px-3 py-1 rounded-lg lg:px-8 md:px-2 hover:bg-slate-500"
+                className="border px-3 py-1 rounded-lg lg:px-8 md:px-2 dark:hover:bg-slate-500 hover:bg-light-secondary"
               >
                 Reject
               </button>

@@ -27,7 +27,11 @@ const Inbox = ({ email }) => {
       {documents.map((d) => (
         <div
           onClick={() => navigate("/document/" + d.document._id)}
-          className="h-10 dark:hover:bg-gray-700 border-b-0.5 border-dark-third flex items-center px-2 cursor-pointer"
+          className={
+            d.isRead
+              ? "h-10 dark:hover:bg-gray-700 border-b-0.5 border-dark-third flex items-center px-2 cursor-pointer bg-gray-600"
+              : "h-10 dark:hover:bg-gray-700 border-b-0.5 border-dark-third flex items-center px-2 cursor-pointer"
+          }
         >
           <div className="lg:w-80 w-24 flex items-center">
             <img

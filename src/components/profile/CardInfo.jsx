@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { updateProfile } from "../../api/user";
 
+const years = 110;
+const days = 28;
+
 const CardInfo = ({ setSelectedId, userProfile, setUserProfile }) => {
   const defaultValue = {
     firstName: userProfile.firstName,
@@ -126,8 +129,21 @@ const CardInfo = ({ setSelectedId, userProfile, setUserProfile }) => {
               <option selected value="">
                 None
               </option>
-              <option value="1">1</option>
-              <option value="2">2</option>
+              {[...Array(days)].map((_, i) => (
+                <option value={i + 1}>{i + 1}</option>
+              ))}
+
+              {(year % 4 == 0 || year === 2000) && month !== "February" ? (
+                <option value="29">29</option>
+              ) : null}
+              {month !== "February" ? <option value="30">30</option> : null}
+              {month !== "April" &&
+              month !== "June" &&
+              month !== "September" &&
+              month !== "November" &&
+              month !== "February" ? (
+                <option value="31">31</option>
+              ) : null}
             </select>
           </div>
         </div>
@@ -172,8 +188,9 @@ const CardInfo = ({ setSelectedId, userProfile, setUserProfile }) => {
               className="form-select appearance-none block w-full p-1 text-white bg-dark-third bg-clip-padding bg-no-repeat m-0 focus:text-white focus:bg-dark-third focus:border-blue-600 focus:outline-none"
             >
               <option selected>None</option>
-              <option value="1998">1998</option>
-              <option value="1999">1999</option>
+              {[...Array(years)].map((_, i) => (
+                <option value={2022 - i}>{2022 - i}</option>
+              ))}
             </select>
           </div>
         </div>

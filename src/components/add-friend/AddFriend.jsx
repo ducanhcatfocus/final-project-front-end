@@ -54,14 +54,17 @@ const AddFriend = ({
     <>
       <form
         onSubmit={handleSubmit}
-        className="w-full mx-auto p-5 border-b-0.5 border-dark-third space-y-3"
+        className="w-full mx-auto p-5 border-b-0.5 dark:border-dark-third space-y-3"
       >
-        <h1 className="text-white font-semibold">ADD FRIEND</h1>
-        <span className="text-gray-400">
+        <h1 className="dark:text-white font-semibold">ADD FRIEND</h1>
+        <span className="dark:text-gray-400">
           You can add your contact with their email
         </span>
         <label
-          className={"flex justify-between bg-dark-third border " + noti.border}
+          className={
+            "flex justify-between bg-gray-50 dark:bg-dark-third border " +
+            noti.border
+          }
         >
           <input
             className={
@@ -74,8 +77,8 @@ const AddFriend = ({
           <button
             className={
               !mail
-                ? "w-1/5 bg-blue-900 p-1 m-2 h-full rounded cursor-not-allowed self-center text-gray-400"
-                : "w-1/5 bg-blue-500 p-1 m-2 h-full rounded self-center"
+                ? "w-1/5 dark:bg-blue-900 bg-blue-800 p-1 m-2 h-full rounded cursor-not-allowed self-center text-gray-400"
+                : "w-1/5 bg-blue-500 hover:bg-blue-600 p-1 m-2 h-full rounded self-center"
             }
             disabled={!mail}
           >

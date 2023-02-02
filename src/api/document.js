@@ -43,6 +43,34 @@ export const myDocument = async () => {
   }
 };
 
+export const searchMyDocument = async (value) => {
+  try {
+    const { data } = await client.get(
+      `/document/search-my-document?search=${value}`
+    );
+    console.log(data);
+    return data;
+  } catch (error) {
+    const { response } = error;
+    if (response?.data) return response.data;
+    return { error: error.message || error };
+  }
+};
+
+export const deleteMyDocument = async (documentId) => {
+  try {
+    const { data } = await client.put(
+      `/document/document-detail/${documentId}`
+    );
+    console.log(data);
+    return data;
+  } catch (error) {
+    const { response } = error;
+    if (response?.data) return response.data;
+    return { error: error.message || error };
+  }
+};
+
 export const getDocument = async (documentId) => {
   try {
     const { data } = await client.get(

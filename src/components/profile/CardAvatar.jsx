@@ -52,11 +52,11 @@ const CardAvatar = ({
   };
 
   return (
-    <div className="lg:w-1/2 lg:h-80 lg:my-auto h-80 mt-4   bg-dark-third mx-auto flex flex-col justify-between rounded-lg p-4">
+    <div className="lg:w-1/2 lg:h-80 lg:my-auto h-80 mt-4 dark:bg-dark-third bg-light-primary mx-auto flex flex-col justify-between rounded-lg p-4">
       <div className="flex justify-between mb-2">
         <div className="font-semibold">PROFILE COLOR</div>
         <button
-          className="border-2 rounded-full w-8 h-8 hover:bg-dark-secondary"
+          className="border-2 rounded-full w-8 h-8 dark:hover:bg-dark-secondary hover:bg-light-secondary"
           onClick={() => {
             setSelectedId(null);
             setChange(false);
@@ -101,7 +101,7 @@ const CardAvatar = ({
                   htmlFor="formId"
                   onChange={(e) => handleImageChange(e)}
                 >
-                  <div className="m-auto font-semibold text-xs break-words">
+                  <div className="m-auto font-semibold text-xs break-words text-white">
                     CHANGE AVATAR
                   </div>
                   <input
@@ -113,7 +113,7 @@ const CardAvatar = ({
                   />
                 </label>
               ) : null}
-              <button className="absolute bg-dark-third p-1 rounded-full top-1 right-1">
+              <button className="absolute dark:bg-dark-third bg-white p-1 rounded-full top-1 right-1">
                 <RiImageEditLine className="h-5 w-5" />
               </button>
             </div>
@@ -161,7 +161,7 @@ const CardAvatar = ({
             animate={{ y: -75 }}
             // transition={{ stiffness: 75 }}
             exit={{ y: 0 }}
-            className="absolute h-12 md:w-96 w-80 border  lg:bottom-2 bottom-1/2 py-1 px-2 m-auto bg-dark-third flex justify-between rounded left-0 right-0"
+            className="absolute h-12 md:w-96 w-80 border lg:bottom-2 bottom-1/2 py-1 px-2 m-auto dark:bg-dark-third bg-light-primary flex justify-between rounded left-0 right-0"
           >
             <div className="font-semibold self-center text-sm lg:text-base">
               You have unsaved changes!
@@ -174,7 +174,7 @@ const CardAvatar = ({
                   setImage(null);
                   setCustomColor(false);
                 }}
-                className="mr-2 hover:underline text-gray-300"
+                className="mr-2 hover:underline dark:text-gray-300 text-gray-400"
               >
                 reset
               </button>

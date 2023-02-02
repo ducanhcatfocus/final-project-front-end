@@ -6,8 +6,7 @@ const SearchFriend = ({ setSearchValue }) => {
       Friends
       <input
         onChange={(e) => setSearchValue(e.target.value)}
-        type="text"
-        className=" bg-dark-third h-8 w-48 md:w-32 lg:w-60  p-1 rounded bg-transparent text-sm outline-none transition text-white border mt-1"
+        className="bg-dark-third h-8 w-48 md:w-32 lg:w-60 p-1 rounded bg-transparent text-sm outline-none transition dark:text-white text-dark-primary border mt-1"
         placeholder="Search Friend..."
       />
     </div>

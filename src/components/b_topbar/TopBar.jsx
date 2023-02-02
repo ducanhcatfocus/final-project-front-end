@@ -9,11 +9,12 @@ import {
   AiOutlineInbox,
   AiOutlineSend,
 } from "react-icons/ai";
+import { SiGoogleclassroom } from "react-icons/si";
 import TopbarItem from "./TopbarItem";
 
 const Sidebar = ({ roomDetails, pendingFriendInvitation }) => {
   return (
-    <div className="bg-dark-third h-16 flex flex-col justify-end">
+    <div className="dark:bg-dark-third bg-light-secondary h-16 flex flex-col justify-end">
       <div className="h-4/5 flex px-5 gap-2 overflow-x-auto md:scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-100 whitespace-nowrap">
         <TopbarItem to="/compose" label="Compose" icon={<BsPencilSquare />} />
         <TopbarItem to="/inbox" label="Inbox" icon={<AiOutlineInbox />} />
@@ -34,6 +35,9 @@ const Sidebar = ({ roomDetails, pendingFriendInvitation }) => {
           label="Join room"
           icon={<AiOutlineUsergroupAdd />}
         />
+        {roomDetails && (
+          <TopbarItem to="/room" label="room" icon={<SiGoogleclassroom />} />
+        )}
       </div>
       {/* {roomDetails ? (
         <SideBarItem to="/room" label={roomDetails.roomName} />

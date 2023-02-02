@@ -86,7 +86,10 @@ const ChatFullscreen = ({
   };
 
   const handleKeyDown = (e) => {
-    if ((e.key === "Enter" && chat.length > 0) || file.length > 0) {
+    if (
+      (e.key === "Enter" && chat.length > 0) ||
+      (e.key === "Enter" && file.length > 0)
+    ) {
       sendDirectMessage({
         receiverId: chosenChatDetails.id,
         content: chat,
@@ -119,7 +122,7 @@ const ChatFullscreen = ({
     <>
       {chosenChatDetails ? (
         <div className="flex flex-col justify-between dark:text-white text-dark-secondary md:h-full h-[550px]">
-          <div className="flex justify-start p-1 border-b-0.5 border-dark-third ">
+          <div className="flex justify-start p-1 border-b-0.5 dark:border-dark-third ">
             <div className="relative">
               <img
                 src={chosenChatDetails.avatar}
@@ -143,7 +146,7 @@ const ChatFullscreen = ({
           </div>
           <div
             onScroll={(e) => handleScroll(e)}
-            className="mb-auto p-1 overflow-y-auto scrollbar scrollbar-thumb-gray-500 scrollbar-track-dark-third relative"
+            className="mb-auto p-1 overflow-y-auto scrollbar dark:scrollbar-thumb-gray-400 scrollbar-thumb-gray-300 scrollbar-track-gray-100 dark:scrollbar-track-dark-third relative"
             ref={scrollRef}
           >
             {loadMore ? (
@@ -166,7 +169,7 @@ const ChatFullscreen = ({
                       {user.id !== message.author._id ? (
                         <div className="p-1 ml-11">
                           {message.content !== "" && (
-                            <p className="font-light text-lg break-all w-64 rounded bg-dark-third p-3">
+                            <p className="font-light text-lg break-all w-64 rounded dark:bg-dark-third bg-light-primary p-3">
                               {message.content}
                             </p>
                           )}
@@ -176,7 +179,7 @@ const ChatFullscreen = ({
                         <div className="p-1 flex justify-end mr-11">
                           <div className="grid justify-items-end">
                             {message.content !== "" && (
-                              <p className="font-light text-lg break-all w-64 rounded  bg-blue-500 p-3">
+                              <p className="font-light text-lg break-all w-64 rounded bg-blue-400 p-3">
                                 {message.content}
                               </p>
                             )}
@@ -209,7 +212,7 @@ const ChatFullscreen = ({
                           </div>
                           <div className="">
                             {message.content !== "" && (
-                              <p className="font-light text-lg break-all bg-dark-third rounded p-3 w-64">
+                              <p className="font-light text-lg break-all dark:bg-dark-third bg-light-primary rounded p-3 w-64">
                                 {message.content}
                               </p>
                             )}
@@ -225,7 +228,7 @@ const ChatFullscreen = ({
                             {convertDate(message.date)}
                           </p>
                           {message.content !== "" && (
-                            <p className="font-light text-lg break-all bg-blue-500 rounded p-3 w-64">
+                            <p className="font-light text-lg break-all bg-blue-400 rounded p-3 w-64">
                               {message.content}
                             </p>
                           )}

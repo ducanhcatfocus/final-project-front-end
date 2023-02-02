@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { CgDarkMode } from "react-icons/cg";
 import { AiOutlineLogout } from "react-icons/ai";
 import { BsChatLeftText } from "react-icons/bs";
-import { FiUsers } from "react-icons/fi";
+import { FiUsers, FiHelpCircle, FiUser, FiBell } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import { useTheme } from "../../hooks";
 import { connect } from "react-redux";
@@ -21,6 +21,8 @@ const NavBar = ({
   setToggleChat,
   toggleChat,
   newMessage,
+  setToggleNotification,
+  toggleNotification,
 }) => {
   const { toggleTheme } = useTheme();
   const [contextMenu, setContextMenu] = useState(false);
@@ -55,7 +57,7 @@ const NavBar = ({
   };
 
   return (
-    <header className="dark:bg-dark-primary bg-light-primary h-12">
+    <header className="dark:bg-dark-primary bg-light-primary h-12 shadow-2xl dark:shadow-none px-2">
       {user ? (
         <>
           <div className="flex justify-between">
@@ -67,23 +69,46 @@ const NavBar = ({
             <div className="flex items-center gap-3">
               <button
                 onClick={toggleTheme}
-                className="dark:bg-white bg-dark-primary p-1 rounded"
+                className="dark:bg-white  bg-light-secondary p-1 rounded"
               >
                 <CgDarkMode
-                  className="dark:text-secondary dark:bg-white bg-dark-primary  text-white "
+                  className="dark:text-secondary text-white"
                   size={24}
                 />
               </button>
-              <button className="dark:bg-dark-third bg-dark-primary p-2 rounded-full h-9 w-9 items-center flex hover:border-0.5 hover:border-gray-600 relative">
+              <button
+                className={
+                  toggleNotification
+                    ? "dark:bg-gray-600 bg-light-secondary p-2 rounded-full h-9 w-9 items-center flex hover:border-0.5 dark:hover:border-gray-600"
+                    : "dark:bg-dark-third bg-light-secondary p-2 rounded-full h-9 w-9 items-center flex hover:border-0.5 dark:hover:border-gray-600"
+                }
+              >
+                <FiBell
+                  onClick={() => {
+                    setToggleChat(false);
+                    setToggleNotification(!toggleNotification);
+                  }}
+                  className="dark:text-gray-300 text-white"
+                  size={24}
+                />
+              </button>
+              <button
+                className={
+                  toggleChat
+                    ? "dark:bg-gray-600 bg-light-secondary p-2 rounded-full h-9 w-9 items-center flex hover:border-0.5 dark:hover:border-gray-600 relative"
+                    : "dark:bg-dark-third bg-light-secondary p-2 rounded-full h-9 w-9 items-center flex hover:border-0.5 dark:hover:border-gray-600 relative"
+                }
+              >
                 <BsChatLeftText
                   onClick={() => {
+                    setToggleNotification(false);
                     setToggleChat(!toggleChat);
                     setNoti(false);
                   }}
                   className={
                     toggleChat == true
-                      ? "dark:text-gray-300 dark:bg-dark-third bg-dark-primary  hover:bg-slate-500 text-blue-500"
-                      : "dark:text-gray-300 dark:bg-dark-third bg-dark-primary  hover:bg-slate-500 text-white"
+                      ? "dark:text-gray-300  text-blue-500"
+                      : "dark:text-gray-300  text-white"
                   }
                   size={24}
                 />
@@ -91,17 +116,17 @@ const NavBar = ({
                   <div className="absolute w-3 h-3 bg-blue-500 top-0 right-0 rounded-full"></div>
                 ) : null}
               </button>
-              <button className="dark:bg-dark-third bg-dark-primary p-2 rounded-full h-9 w-9 items-center flex hover:border-0.5 hover:border-gray-600 ">
+              <button className="dark:bg-dark-third bg-light-secondary p-2 rounded-full h-9 w-9 items-center flex hover:border-0.5 dark:hover:border-gray-600 ">
                 <FiUsers
                   onClick={() => setToggleFriend(!toggleFriend)}
-                  className="dark:text-gray-300 dark:bg-dark-third bg-dark-primary  text-white  hover:bg-slate-500"
+                  className="dark:text-gray-300 text-white"
                   size={24}
                 />
               </button>
               <button
                 ref={ref}
                 onClick={() => setContextMenu(!contextMenu)}
-                className="text-white font-semibold flex dark:hover:bg-dark-third hover:bg-light-third p-1   rounded"
+                className="text-white font-semibold flex dark:hover:bg-dark-third hover:bg-light-secondary p-1   rounded"
               >
                 <div className="self-center mr-2 font-semibold dark:text-white text-dark-third">
                   {user?.name}
@@ -122,10 +147,15 @@ const NavBar = ({
               }}
             >
               <ul className="bg-gray-700 w-24 rounded text-gray-300 p-1 text-lg shadow-2xl select-none">
-                <li className="hover:bg-blue-600 rounded p-1">
+                <li className="hover:bg-blue-600 rounded p-1 flex justify-between">
                   <button onClick={() => navigate(`/my-profile`)}>
                     Profile
                   </button>
+                  <FiUser className="self-center" />
+                </li>
+                <li className="hover:bg-blue-600 rounded p-1 flex justify-between">
+                  <button onClick={() => navigate(`/guild`)}>Help</button>
+                  <FiHelpCircle className="self-center" />
                 </li>
                 <li className="hover:bg-blue-600 rounded p-1 flex justify-between">
                   <button onClick={handleLogout}>Logout</button>
